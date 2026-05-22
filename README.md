@@ -110,6 +110,19 @@ Decode a packet for humans:
 eap decode '<SEC:VUL #ctx4 | line=42 fixed=false'
 ```
 
+Estimate size and tokenizer-agnostic cost:
+
+```bash
+eap meter '>SEC:XSS #ctx4 !9' --rate-per-1k 0.5
+```
+
+Compare natural language, ASCII EAP, Unicode EAP, and compact JSON:
+
+```bash
+eap compare '◤SEC::XSS ➔ 📦[#ctx4] ⚡9' \
+  --natural "過去ログ4番のXSSを超ガチで見て"
+```
+
 ## Python API
 
 ```python
@@ -152,7 +165,10 @@ choice alone guarantees token savings. The reliable savings come from:
 - key-value payloads instead of prose
 - strict rejection of conversational filler
 
+The built-in meter is intentionally tokenizer-agnostic. It reports characters,
+UTF-8 bytes, and a simple heuristic token estimate. Use it for quick comparisons,
+then validate serious claims with the exact tokenizer used by your target model.
+
 ## License
 
 MIT
-
