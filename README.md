@@ -153,6 +153,27 @@ Response: <DOMAIN:STATUS #target | data
 Sync:     =DOMAIN:STATUS #target | data
 ```
 
+## Token Cost — EAP vs AIT
+
+EAP ASCII is already compact. For maximum compression, see the layer below:
+[AI Instruction Tape (AIT)](https://github.com/kagioneko/ai-instruction-tape).
+
+Benchmark summary (cl100k_base, 14 tasks):
+
+| Format | Avg tokens/task |
+|--------|---------------:|
+| Natural Lang (JA) | 33.5 |
+| Natural Lang (EN) | 16.4 |
+| EAP Unicode | 24.7 |
+| EAP ASCII | 12.8 |
+| AIT | 5.4 |
+
+⚠️ EAP Unicode costs **more tokens than English natural language** on most
+tokenizers due to emoji/symbol fragmentation. Use EAP ASCII for real cost control,
+and AIT when you need the absolute minimum.
+
+→ Full benchmark: [ai-instruction-tape/benchmarks/results_v3.md](https://github.com/kagioneko/ai-instruction-tape/blob/main/benchmarks/results_v3.md)
+
 ## Practical Positioning
 
 EAP is strongest as a constrained intermediate representation for agent logs,
